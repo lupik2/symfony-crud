@@ -1,0 +1,58 @@
+{% extends "base.twig" %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            {{ auction.title }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ auction.description }}</h5>
+            <p class="card-text">Cena: {{ auction.price }}</p>
+            <p class="card-text">Cena wywoławcza: {{ auction.startingPrice }}</p>
+            <p class="card-text">Aukcja kończy się: {{ auction.expiresAt|date("d-m-Y, H:i:s") }}</p>
+            <a  href="{{ url('myauction_index') }}" class="btn btn-primary float-left">Powrót</a>
+
+
+                <a  href="{{ url('myauction_edit', {"id": auction.id}) }}" class="btn btn-info float-left">Edycja</a>
+                {#
+                            <a  href="{{ url('auction_delete', {"id": auction.id}) }}" class="btn btn-danger">Usuń</a>
+                #}
+                {{ form_start(deleteForm, {"attr": {"class": "float-left"}}) }}
+                {{ form_widget(deleteForm.submit, {"attr": {"class": "btn-danger"}}) }}
+                {{ form_rest(deleteForm) }}
+                {{ form_end(deleteForm) }}
+                {# FORMULARZ DO USUWANIA AUKCJI#}
+
+                {{ form_start(finishForm, {"attr": {"class": "float-left"}}) }}
+                {{ form_widget(finishForm.submit, {"attr": {"class": "btn-success"}}) }}
+                {{ form_rest(finishForm) }}
+                {{ form_end(finishForm) }}
+                {# FORMULARZ DO KOŃCZENIA AUKCJI#}
+
+
+            <div style="clear:both"></div>
+            <hr>
+
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Oferta</th>
+            <th scope="col">Data</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for offer in offers %}
+        <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ offer.price }}</td>
+            <td>{{ offer.createdAt|date }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

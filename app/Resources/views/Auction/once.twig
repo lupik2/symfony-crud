@@ -1,0 +1,51 @@
+{% extends "base.twig" %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            {{ auction.title }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ auction.description }}</h5>
+            <p class="card-text">Cena: {{ auction.price }}</p>
+            <p class="card-text">Cena wywoławcza: {{ auction.startingPrice }}</p>
+            <p class="card-text">Aukcja kończy się: {{ auction.expiresAt|date("d-m-Y, H:i:s") }}</p>
+            <a  href="{{ url('auction_index') }}" class="btn btn-primary float-left">Powrót</a>
+            {{ form_start(buyForm, {"attr": {"class": "float-left"}}) }}
+                {{ form_widget(buyForm.submit, {"attr": {"class": "btn-success"}}) }}
+                {{ form_rest(buyForm) }}
+            {{ form_end(buyForm) }}
+            {# FORMULARZ DO KUPOWANIA AUKCJI#}
+
+            <div style="clear:both"></div>
+            <hr>
+
+            {{ form_start(bidForm,  {"attr": {"novalidate": "novalidate", "class": "form-inline"}}) }}
+            {{ form_widget(bidForm.price) }}
+            {{ form_widget(bidForm.submit, {"attr": {"class": "btn-success"}}) }}
+
+            {{ form_end(bidForm) }}
+            {# FORMULARZ DO LICTYOWANIA AUKCJI#}
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Oferta</th>
+            <th scope="col">Data</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for offer in offers %}
+        <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ offer.price }}</td>
+            <td>{{ offer.createdAt|date }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

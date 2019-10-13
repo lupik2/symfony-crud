@@ -1,0 +1,36 @@
+{% extends "base.twig" %}
+
+{% block body %}
+    <h1>Lista moich aukcji</h1>
+    <div class="row">
+
+        {% if auctions|length < 1%}
+            <div class="col-lg-12">
+                <div class="alert alert-danger text-center">
+                    Nie istnieje żadna aukcja
+                </div>
+            </div>
+        {% else %}
+            {% for auction in auctions %}
+
+                <div class="col-lg-4">
+                    <div class="card-deck mb-3 text-center">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header {% if auction.status == "finished" %} bg-warning {% endif %}">
+                                <h4 class="my-0 font-weight-normal">{{ auction.title }}</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">{{ auction.price }} <small class="text-muted">pln</small></h1>
+                                <p>{{ auction.description }}</p>
+
+                                <a href="{{ url("myauction_once", {"id": auction.id}) }}" type="button" class="btn btn-lg btn-block btn-outline-primary">Zobacz</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        {% endif %}
+
+    </div>
+{% endblock %}
