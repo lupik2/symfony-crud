@@ -131,12 +131,17 @@ class Auction
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="auctions")
      */
-    private $owner; // w bazie pojawi sie kolumna owner_id , skąd taka nazwa? wiem, że człon pierwszy jest z nazwy właściwości $owner, ale skad doctrine wie, aby dodać tam też _id
+    private $owner;
+    // w bazie pojawi sie kolumna owner_id , skąd taka nazwa? wiem, że człon
+    // pierwszy jest z nazwy właściwości $owner, ale skad doctrine wie
+    // aby dodać tam też _id
 
     /**
+     * inicjalizacja dla Doctrina pola offers specjalnym typem, po co się to robi?
+     *
      * Auction constructor.
      */
-    //inicjalizacja dla Doctrina pola offers specjalnym typem, po co się to robi?
+
     public function __construct()
     {
         $this->offers = new ArrayCollection();

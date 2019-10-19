@@ -3,15 +3,17 @@
 
 namespace AppBundle\Form;
 
+
 use AppBundle\Entity\Offer;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BidType extends AbstractType
+class DeleteAuctionType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -19,9 +21,10 @@ class BidType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("price", NumberType::class, ["label" => "Cena"])
-            ->add("submit", SubmitType::class, ["label" => "Licytuj"]);
+            ->add("submit", SubmitType::class, ["label" => "Usuń"])
+            ->setMethod(Request::METHOD_DELETE);
     }
+
 
     /**
      * @param OptionsResolver $resolver
@@ -30,7 +33,7 @@ class BidType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => Offer::class
+                'data_class' => Offer::class,
             ]
         );
     }

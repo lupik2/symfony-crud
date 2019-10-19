@@ -23,8 +23,13 @@
                             <h1 class="card-title pricing-card-title">{{ auction.price }} <small class="text-muted">pln</small></h1>
                             <p>{{ auction.description }}</p>
 
+
                             <a href="{{ url("auction_once", {"id": auction.id}) }}" type="button" class="btn btn-lg btn-block btn-outline-primary">Zobacz</a>
                         </div>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Właściciel: {{ auction.owner }}</li>
+                        </ul>
                     </div>
                 </div>
             </div>
